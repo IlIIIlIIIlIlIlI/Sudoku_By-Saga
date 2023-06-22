@@ -1,7 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import sudokuReducer from '../Redux';
-import { sudokuSaga } from '../SagaImpl/Saga';
+import sudokuSaga from '../SagaImpl';
 
 export type SudokuSuperState = {
   sudoku: number;
