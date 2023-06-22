@@ -1,8 +1,8 @@
 import React from 'react';
-import scssObj from './App.scss';
+import Starter from './Starter';
 
 function App() {
-  return <div className={`${scssObj.baseClass}__container`}>Suraj</div>;
+  return <Starter />;
 }
 
 export default App;
