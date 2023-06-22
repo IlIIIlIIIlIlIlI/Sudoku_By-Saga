@@ -1,7 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import sudokuReducer, { Sudoku } from '../Redux';
-import sudokuSaga from '../SagaImpl';
+import rootSaga from './rootSaga';
 
 export type SudokuSuperState = {
   sudoku: Sudoku;
@@ -15,4 +15,4 @@ export const rootReducer = combineReducers<SudokuSuperState>({
 
 export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
-sagaMiddleware.run(sudokuSaga);
+sagaMiddleware.run(rootSaga);
