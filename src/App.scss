@@ -1,0 +1,11 @@
+$base-class: app;
+
+:export {
+  baseClass: $base-class;
+}
+
+.#{$base-class} {
+  &__container {
+    font-size: 40px;
+  }
+}
