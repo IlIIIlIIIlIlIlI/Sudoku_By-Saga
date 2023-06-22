@@ -1,3 +1,8 @@
 import { createReducer } from 'typesafe-actions';
+import { Sudoku } from './types';
 
-export default createReducer<any, any>(0); // All All
+const initialState: Sudoku = {
+  matrix9x9: [],
+};
+
+export default createReducer<Sudoku, any>(initialState);
