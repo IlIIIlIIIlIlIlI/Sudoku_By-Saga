@@ -82,3 +82,20 @@ export const matrixMapper = (
 
   return blankMatrix;
 };
+
+export const createOnlyDiagonalMatrices = () => {
+  const topLeftDiagonalMatrix = create3by3RandomMatrix();
+  const middleCentreDiagonalMatrix = create3by3RandomMatrix();
+  const bottomRightDiagonalMatrix = create3by3RandomMatrix();
+
+  let resultMatrix = matrixMapper(
+    createBlankMatrix(),
+    topLeftDiagonalMatrix,
+    0,
+    0
+  );
+
+  resultMatrix = matrixMapper(resultMatrix, middleCentreDiagonalMatrix, 3, 3);
+
+  return matrixMapper(resultMatrix, bottomRightDiagonalMatrix, 6, 6);
+};

@@ -8,3 +8,5 @@ export const setMatrix = createAction(
   'SET_MATRIX_9X9',
   (action) => (payload: { matrix9x9: number[][] }) => action(payload)
 );
+
+export const solveTopCentreMatrix = createAction('SOLVE_TOP_CENTER_MATRIX');
