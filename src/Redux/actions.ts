@@ -15,4 +15,6 @@ export const solveTopRightMatrix = createAction('SOLVE_TOP_RIGHT_MATRIX');
 
 export const solveMiddleLeftMatrix = createAction('SOLVE_MIDDLE_LEFT_MATRIX');
 
-export const solveMiddleRightMatrix = createAction('SOLVE_MIDDL_RIGHT_MATRIX');
+export const solveMiddleRightMatrix = createAction('SOLVE_MIDDLE_RIGHT_MATRIX');
+
+export const solveBottomLeftMatrix = createAction('SOLVE_BOTTOM_LEFT_MATRIX');
