@@ -16,6 +16,7 @@ import {
   solveTopCentreMatrix,
   solveTopRightMatrix,
   startSolvingMatrixFromScrach,
+  toggleLoadingSpinner,
 } from '../Redux';
 import {
   calculateNonDiagonalMatrix,
@@ -24,6 +25,7 @@ import {
 
 function* watchStartSolvingMatrixFromScrach(): SagaIterator<void> {
   try {
+    yield put(toggleLoadingSpinner(true));
     yield put(setMatrix({ matrix9x9: createOnlyDiagonalMatrices() }));
 
     yield put(solveTopCentreMatrix());
@@ -148,6 +150,7 @@ function* watchSolveBottomCenterMatrix(): SagaIterator<void> {
       3
     );
     yield put(setMatrix({ matrix9x9: bottomCenterMatrix }));
+    yield put(toggleLoadingSpinner(false));
   } catch (error) {
     yield put(startSolvingMatrixFromScrach());
     console.log('errors occured', error);

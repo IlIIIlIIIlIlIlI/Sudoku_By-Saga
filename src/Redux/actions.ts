@@ -22,3 +22,8 @@ export const solveBottomLeftMatrix = createAction('SOLVE_BOTTOM_LEFT_MATRIX');
 export const solveBottomCenterMatrix = createAction(
   'SOLVE_BOTTOM_CENTER_MATRIX'
 );
+
+export const toggleLoadingSpinner = createAction(
+  'TOGGLE_LOADING_SPINNER',
+  (action) => (payload: boolean) => action(payload)
+);

@@ -1,11 +1,7 @@
 import produce from 'immer';
 import { createReducer } from 'typesafe-actions';
 import { ReduxActionType, Sudoku } from './types';
-import {
-  setMatrix,
-  solveBottomCenterMatrix,
-  startSolvingMatrixFromScrach,
-} from './actions';
+import { setMatrix, toggleLoadingSpinner } from './actions';
 import { createBlankMatrix } from '../Utility/RedokuUtils';
 
 const initialState: Sudoku = {
@@ -19,13 +15,8 @@ export default createReducer<Sudoku, ReduxActionType>(initialState)
       draft.matrix9x9 = matrix9x9;
     });
   })
-  .handleAction(startSolvingMatrixFromScrach, (state) => {
+  .handleAction(toggleLoadingSpinner, (state, { payload }) => {
     return produce(state, (draft) => {
-      draft.isSudokuBeingCalculated = true;
-    });
-  })
-  .handleAction(solveBottomCenterMatrix, (state) => {
-    return produce(state, (draft) => {
-      draft.isSudokuBeingCalculated = false;
+      draft.isSudokuBeingCalculated = payload;
     });
   });
