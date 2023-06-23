@@ -10,3 +10,7 @@ export const setMatrix = createAction(
 );
 
 export const solveTopCentreMatrix = createAction('SOLVE_TOP_CENTER_MATRIX');
+
+export const solveTopRightMatrix = createAction('SOLVE_TOP_RIGHT_MATRIX');
+
+export const solveMiddleLeftMatrix = createAction('SOLVE_MIDDLE_LEFT_MATRIX');

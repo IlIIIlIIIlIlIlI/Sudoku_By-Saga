@@ -99,3 +99,71 @@ export const createOnlyDiagonalMatrices = () => {
 
   return matrixMapper(resultMatrix, bottomRightDiagonalMatrix, 6, 6);
 };
+
+export const getHorizontalRowElements = (
+  parentMatrix: number[][],
+  horizontalIndex: number
+) => {
+  return parentMatrix[horizontalIndex].filter((value) => !!value);
+};
+
+export const getVertcalColumnElements = (
+  parentMatrix: number[][],
+  verticalIndex: number
+) => {
+  return parentMatrix
+    .map((row) => row[verticalIndex])
+    .filter((element) => !!element);
+};
+
+export const calculateNonDiagonalMatrix = (
+  parentMatrix: number[][],
+  horizontalIndex: number,
+  verticalIndex: number
+) => {
+  try {
+    const numbersToBeAdded = new Set<number>(setOfAllNumbers);
+
+    const childMatrix = [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ];
+
+    for (let i = horizontalIndex; i < horizontalIndex + 3; i++) {
+      for (let j = verticalIndex; j < verticalIndex + 3; j++) {
+        const rowElements = getHorizontalRowElements(parentMatrix, i);
+        const columnELements = getVertcalColumnElements(parentMatrix, j);
+
+        const outSideCrossHairElements = Array.from(
+          new Set<number>([...rowElements, ...columnELements])
+        );
+
+        const elementsPlaceble = Array.from(numbersToBeAdded).filter(
+          (elements) => !outSideCrossHairElements.includes(elements)
+        );
+
+        const randomlySelectedNumber = selectRandomNumberFromSet(
+          new Set<number>(elementsPlaceble)
+        );
+
+        if (randomlySelectedNumber) {
+          numbersToBeAdded.delete(randomlySelectedNumber);
+
+          childMatrix[i % 3][j % 3] = randomlySelectedNumber;
+        } else {
+          throw Error;
+        }
+      }
+    }
+
+    return matrixMapper(
+      parentMatrix,
+      childMatrix,
+      horizontalIndex,
+      verticalIndex
+    );
+  } catch (e) {
+    throw e;
+  }
+};
