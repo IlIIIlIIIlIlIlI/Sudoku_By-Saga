@@ -1,18 +1,14 @@
 import { SagaIterator } from 'redux-saga';
 import { call, takeEvery } from 'redux-saga/effects';
 import { startSolvingMatrixFromScrach } from '../Redux';
+import { create3by3RandomMatrix } from '../Utility/RedokuUtils';
 
-function* watchStartSolvingMatrixFromScrach(
-  action: ReturnType<typeof startSolvingMatrixFromScrach>
-) {
+function* watchStartSolvingMatrixFromScrach() {
   try {
     yield call(() => {
-      console.log('action', action);
-      console.log('successful');
+      console.log('action', create3by3RandomMatrix());
     });
-  } catch (e) {
-    console.log('unsuccessful');
-  }
+  } catch (e) {}
 }
 
 export function* sudokuSaga(): SagaIterator<void> {
