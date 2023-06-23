@@ -7,6 +7,7 @@ import {
   solveMiddleRightMatrix,
   startSolvingMatrixFromScrach,
   solveBottomLeftMatrix,
+  solveBottomCenterMatrix,
 } from './actions';
 
 export type Sudoku = {
@@ -19,5 +20,6 @@ export type ReduxActionType =
   | ActionType<typeof solveMiddleLeftMatrix>
   | ActionType<typeof solveMiddleRightMatrix>
   | ActionType<typeof solveBottomLeftMatrix>
+  | ActionType<typeof solveBottomCenterMatrix>
   | ActionType<typeof startSolvingMatrixFromScrach>
   | ActionType<typeof setMatrix>;
