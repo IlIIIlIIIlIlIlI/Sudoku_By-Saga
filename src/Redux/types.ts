@@ -9,6 +9,7 @@ import {
   solveBottomLeftMatrix,
   solveBottomCenterMatrix,
   toggleLoadingSpinner,
+  startSolvingDiagonalMatrices,
 } from './actions';
 
 export type Sudoku = {
@@ -17,6 +18,7 @@ export type Sudoku = {
 };
 
 export type ReduxActionType =
+  | ActionType<typeof startSolvingDiagonalMatrices>
   | ActionType<typeof solveTopCentreMatrix>
   | ActionType<typeof solveTopRightMatrix>
   | ActionType<typeof solveMiddleLeftMatrix>

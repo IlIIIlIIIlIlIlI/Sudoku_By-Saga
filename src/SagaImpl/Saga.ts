@@ -16,6 +16,7 @@ import {
   solveMiddleRightMatrix,
   solveTopCentreMatrix,
   solveTopRightMatrix,
+  startSolvingDiagonalMatrices,
   startSolvingMatrixFromScrach,
   toggleLoadingSpinner,
 } from '../Redux';
@@ -24,14 +25,15 @@ import {
   createOnlyDiagonalMatrices,
 } from '../Utility/RedokuUtils';
 
-function* watchStartSolvingMatrixFromScrach(): SagaIterator<void> {
-  try {
-    yield delay(0);
-    yield put(toggleLoadingSpinner(true));
-    yield put(setMatrix({ matrix9x9: createOnlyDiagonalMatrices() }));
+function* watchStartSolvingDiagonalMatrices(): SagaIterator<void> {
+  yield put(toggleLoadingSpinner(true));
+  yield delay(1000);
+  yield put(startSolvingMatrixFromScrach());
+}
 
-    yield put(solveTopCentreMatrix());
-  } catch (e) {}
+function* watchStartSolvingMatrixFromScrach(): SagaIterator<void> {
+  yield put(setMatrix({ matrix9x9: createOnlyDiagonalMatrices() }));
+  yield put(solveTopCentreMatrix());
 }
 
 function* watchSolveTopCenterMatrix(): SagaIterator<void> {
@@ -153,6 +155,11 @@ export function* sudokuSaga(): SagaIterator<void> {
   yield takeLatest(
     startSolvingMatrixFromScrach,
     watchStartSolvingMatrixFromScrach
+  );
+
+  yield takeLatest(
+    startSolvingDiagonalMatrices,
+    watchStartSolvingDiagonalMatrices
   );
 
   yield takeLatest(solveTopCentreMatrix, watchSolveTopCenterMatrix);

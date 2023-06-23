@@ -4,7 +4,7 @@ import { SudokuSuperState as State } from '../SuperStore/store';
 import {
   selectIsSudokuBeingCalculated,
   selectMatrix9x9,
-  startSolvingMatrixFromScrach,
+  startSolvingDiagonalMatrices,
 } from '../Redux';
 import Starter from './Starter';
 
@@ -18,7 +18,7 @@ const mapState = (state: State) => {
 
 const mapDispatch = (dispatch: Dispatch) => {
   const handleStartSolving = () => {
-    dispatch(startSolvingMatrixFromScrach());
+    dispatch(startSolvingDiagonalMatrices());
   };
 
   return {
