@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 import scssObj from './Starter.scss';
@@ -14,6 +14,15 @@ function Starter({
   handleStartSolving,
   isSudokuBeingCalculated,
 }: Props) {
+  const [isCalledInitially, setIsCalledInitially] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!isCalledInitially) {
+      handleStartSolving();
+      setIsCalledInitially(true);
+    }
+  }, [handleStartSolving, isCalledInitially]);
+
   if (isSudokuBeingCalculated) {
     return (
       <div className={`${scssObj.baseClass}__loader`}>
