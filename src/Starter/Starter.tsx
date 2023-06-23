@@ -30,6 +30,32 @@ function Starter({
       >
         Suraj
       </Button>
+
+      <div>
+        {matrix.map((row) => (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {row.map((element) => (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '40px',
+                  width: '40px',
+                }}
+              >
+                {element}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
