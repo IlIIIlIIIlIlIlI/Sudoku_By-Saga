@@ -29,9 +29,7 @@ function* watchStartSolvingMatrixFromScrach(): SagaIterator<void> {
     yield put(setMatrix({ matrix9x9: createOnlyDiagonalMatrices() }));
 
     yield put(solveTopCentreMatrix());
-  } catch (e) {
-    console.log('errors occured', e);
-  }
+  } catch (e) {}
 }
 
 function* watchSolveTopCenterMatrix(): SagaIterator<void> {
@@ -51,7 +49,6 @@ function* watchSolveTopCenterMatrix(): SagaIterator<void> {
     yield put(solveTopRightMatrix());
   } catch (e) {
     yield put(startSolvingMatrixFromScrach());
-    console.log('errors occured', e);
   }
 }
 
@@ -71,7 +68,6 @@ function* watchSolveTopRightMatrix(): SagaIterator<void> {
     yield put(solveMiddleLeftMatrix());
   } catch (e) {
     yield put(startSolvingMatrixFromScrach());
-    console.log('errors occured', e);
   }
 }
 
@@ -92,7 +88,6 @@ function* watchSolveMiddleLeftMatrix(): SagaIterator<void> {
     yield put(solveMiddleRightMatrix());
   } catch (e) {
     yield put(startSolvingMatrixFromScrach());
-    console.log('errors occured', e);
   }
 }
 
@@ -110,11 +105,8 @@ function* watchSolveMiddleRightMatrix(): SagaIterator<void> {
 
     yield put(setMatrix({ matrix9x9: middleRightMatrix }));
     yield put(solveBottomLeftMatrix());
-
-    // console.log('a', yield select(selectMatrix9x9));
   } catch (error) {
     yield put(startSolvingMatrixFromScrach());
-    console.log('errors occured', error);
   }
 }
 
@@ -134,7 +126,6 @@ function* watchSolveBottomLeftMatrix(): SagaIterator<void> {
     yield put(solveBottomCenterMatrix());
   } catch (error) {
     yield put(startSolvingMatrixFromScrach());
-    console.log('errors occured', error);
   }
 }
 
@@ -153,7 +144,6 @@ function* watchSolveBottomCenterMatrix(): SagaIterator<void> {
     yield put(toggleLoadingSpinner(false));
   } catch (error) {
     yield put(startSolvingMatrixFromScrach());
-    console.log('errors occured', error);
   }
 }
 
