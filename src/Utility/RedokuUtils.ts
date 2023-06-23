@@ -167,3 +167,14 @@ export const calculateNonDiagonalMatrix = (
     throw e;
   }
 };
+
+export enum HardnessLevel {
+  SOLUTION = 'SOLUTION',
+  EASY = 'EASY',
+  MEDIUM = 'MEDIUM',
+  HARD = 'HARD',
+  EXPERT = 'EXPERT',
+  EVIL = 'EVIL',
+}
+
+const sudokuHider = (parentMatrix: number[][], level: HardnessLevel) => {};

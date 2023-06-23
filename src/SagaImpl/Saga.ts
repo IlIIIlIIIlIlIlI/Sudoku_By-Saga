@@ -2,6 +2,7 @@ import { SagaIterator } from 'redux-saga';
 import {
   SagaReturnType,
   call,
+  delay,
   put,
   select,
   takeLatest,
@@ -25,6 +26,7 @@ import {
 
 function* watchStartSolvingMatrixFromScrach(): SagaIterator<void> {
   try {
+    yield delay(0);
     yield put(toggleLoadingSpinner(true));
     yield put(setMatrix({ matrix9x9: createOnlyDiagonalMatrices() }));
 
