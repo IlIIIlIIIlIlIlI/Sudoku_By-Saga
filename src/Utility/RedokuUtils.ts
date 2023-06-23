@@ -2,6 +2,9 @@ export const createBlankArray = () => {
   return new Array(9).fill(0);
 };
 
+/**
+ *  Create 9x9 blank matrix
+ */
 export const createBlankMatrix = () => {
   const matrix: number[][] = [];
 
