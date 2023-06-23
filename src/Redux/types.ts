@@ -4,6 +4,7 @@ import {
   solveTopCentreMatrix,
   solveTopRightMatrix,
   solveMiddleLeftMatrix,
+  solveMiddleRightMatrix,
   startSolvingMatrixFromScrach,
 } from './actions';
 
@@ -15,5 +16,6 @@ export type ReduxActionType =
   | ActionType<typeof solveTopCentreMatrix>
   | ActionType<typeof solveTopRightMatrix>
   | ActionType<typeof solveMiddleLeftMatrix>
+  | ActionType<typeof solveMiddleRightMatrix>
   | ActionType<typeof startSolvingMatrixFromScrach>
   | ActionType<typeof setMatrix>;

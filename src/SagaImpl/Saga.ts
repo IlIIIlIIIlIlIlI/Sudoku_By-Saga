@@ -10,6 +10,7 @@ import {
   selectMatrix9x9,
   setMatrix,
   solveMiddleLeftMatrix,
+  solveMiddleRightMatrix,
   solveTopCentreMatrix,
   solveTopRightMatrix,
   startSolvingMatrixFromScrach,
@@ -84,10 +85,32 @@ function* watchSolveMiddleLeftMatrix(): SagaIterator<void> {
 
     yield put(setMatrix({ matrix9x9: middleLeftMatrix }));
 
-    // yield put(solveTopRightMatrix());
+    yield put(solveMiddleRightMatrix());
   } catch (e) {
     yield put(startSolvingMatrixFromScrach());
     console.log('errors occured', e);
+  }
+}
+
+function* watchSolveMiddleRightMatrix(): SagaIterator<void> {
+  try {
+    const matrixSolvedSoFar: SagaReturnType<typeof selectMatrix9x9> =
+      yield select(selectMatrix9x9);
+
+    const middleRightMatrix = yield call(
+      calculateNonDiagonalMatrix,
+      matrixSolvedSoFar,
+      3,
+      6
+    );
+
+    yield put(setMatrix({ matrix9x9: middleRightMatrix }));
+    // yield put(solveMiddleRightMatrix());
+
+    // console.log('a', yield select(selectMatrix9x9));
+  } catch (error) {
+    yield put(startSolvingMatrixFromScrach());
+    console.log('errors occured', error);
   }
 }
 
@@ -102,4 +125,6 @@ export function* sudokuSaga(): SagaIterator<void> {
   yield takeLatest(solveTopRightMatrix, watchSolveTopRightMatrix);
 
   yield takeLatest(solveMiddleLeftMatrix, watchSolveMiddleLeftMatrix);
+
+  yield takeLatest(solveMiddleRightMatrix, watchSolveMiddleRightMatrix);
 }
