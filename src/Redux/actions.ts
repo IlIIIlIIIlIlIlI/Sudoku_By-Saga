@@ -1,7 +1,9 @@
 import { createAction } from 'typesafe-actions';
+import { HardnessLevel } from '../Utility/RedokuUtils';
 
 export const startSolvingMatrixFromScrach = createAction(
-  'START_SOLVING_MATRIX_FROM_SCRACH'
+  'START_SOLVING_MATRIX_FROM_SCRACH',
+  (action) => (payload: HardnessLevel) => action(payload)
 );
 
 export const setMatrix = createAction(
@@ -15,21 +17,38 @@ export const setPuzzleMatrix = createAction(
 );
 
 export const startSolvingDiagonalMatrices = createAction(
-  'START_SOLVING_DIAGONAL_MATRICES'
+  'START_SOLVING_DIAGONAL_MATRICES',
+  (action) => (payload: HardnessLevel) => action(payload)
 );
 
-export const solveTopCentreMatrix = createAction('SOLVE_TOP_CENTER_MATRIX');
+export const solveTopCentreMatrix = createAction(
+  'SOLVE_TOP_CENTER_MATRIX',
+  (action) => (payload: HardnessLevel) => action(payload)
+);
 
-export const solveTopRightMatrix = createAction('SOLVE_TOP_RIGHT_MATRIX');
+export const solveTopRightMatrix = createAction(
+  'SOLVE_TOP_RIGHT_MATRIX',
+  (action) => (payload: HardnessLevel) => action(payload)
+);
 
-export const solveMiddleLeftMatrix = createAction('SOLVE_MIDDLE_LEFT_MATRIX');
+export const solveMiddleLeftMatrix = createAction(
+  'SOLVE_MIDDLE_LEFT_MATRIX',
+  (action) => (payload: HardnessLevel) => action(payload)
+);
 
-export const solveMiddleRightMatrix = createAction('SOLVE_MIDDLE_RIGHT_MATRIX');
+export const solveMiddleRightMatrix = createAction(
+  'SOLVE_MIDDLE_RIGHT_MATRIX',
+  (action) => (payload: HardnessLevel) => action(payload)
+);
 
-export const solveBottomLeftMatrix = createAction('SOLVE_BOTTOM_LEFT_MATRIX');
+export const solveBottomLeftMatrix = createAction(
+  'SOLVE_BOTTOM_LEFT_MATRIX',
+  (action) => (payload: HardnessLevel) => action(payload)
+);
 
 export const solveBottomCenterMatrix = createAction(
-  'SOLVE_BOTTOM_CENTER_MATRIX'
+  'SOLVE_BOTTOM_CENTER_MATRIX',
+  (action) => (payload: HardnessLevel) => action(payload)
 );
 
 export const toggleLoadingSpinner = createAction(

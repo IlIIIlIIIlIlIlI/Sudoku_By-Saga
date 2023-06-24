@@ -8,6 +8,7 @@ import {
   startSolvingDiagonalMatrices,
 } from '../Redux';
 import Starter from './Starter';
+import { HardnessLevel } from '../Utility/RedokuUtils';
 
 const mapState = (state: State) => {
   const matrix = selectMatrix9x9(state);
@@ -21,7 +22,7 @@ const mapState = (state: State) => {
 
 const mapDispatch = (dispatch: Dispatch) => {
   const handleStartSolving = () => {
-    dispatch(startSolvingDiagonalMatrices());
+    dispatch(startSolvingDiagonalMatrices(HardnessLevel.MEDIUM));
   };
 
   return {

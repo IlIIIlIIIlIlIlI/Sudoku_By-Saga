@@ -28,18 +28,24 @@ import {
   sudokuHider,
 } from '../Utility/RedokuUtils';
 
-function* watchStartSolvingDiagonalMatrices(): SagaIterator<void> {
+function* watchStartSolvingDiagonalMatrices(
+  action: ReturnType<typeof startSolvingDiagonalMatrices>
+): SagaIterator<void> {
   yield put(toggleLoadingSpinner(true));
   yield delay(1000);
-  yield put(startSolvingMatrixFromScrach());
+  yield put(startSolvingMatrixFromScrach(action.payload));
 }
 
-function* watchStartSolvingMatrixFromScrach(): SagaIterator<void> {
+function* watchStartSolvingMatrixFromScrach(
+  action: ReturnType<typeof startSolvingMatrixFromScrach>
+): SagaIterator<void> {
   yield put(setMatrix({ matrix9x9: createOnlyDiagonalMatrices() }));
-  yield put(solveTopCentreMatrix());
+  yield put(solveTopCentreMatrix(action.payload));
 }
 
-function* watchSolveTopCenterMatrix(): SagaIterator<void> {
+function* watchSolveTopCenterMatrix(
+  action: ReturnType<typeof solveTopCentreMatrix>
+): SagaIterator<void> {
   try {
     const matrixSolvedSoFar: SagaReturnType<typeof selectMatrix9x9> =
       yield select(selectMatrix9x9);
@@ -53,13 +59,15 @@ function* watchSolveTopCenterMatrix(): SagaIterator<void> {
 
     yield put(setMatrix({ matrix9x9: topCenterMatrix }));
 
-    yield put(solveTopRightMatrix());
+    yield put(solveTopRightMatrix(action.payload));
   } catch (e) {
-    yield put(startSolvingMatrixFromScrach());
+    yield put(startSolvingMatrixFromScrach(action.payload));
   }
 }
 
-function* watchSolveTopRightMatrix(): SagaIterator<void> {
+function* watchSolveTopRightMatrix(
+  action: ReturnType<typeof solveTopRightMatrix>
+): SagaIterator<void> {
   try {
     const matrixSolvedSoFar: SagaReturnType<typeof selectMatrix9x9> =
       yield select(selectMatrix9x9);
@@ -72,13 +80,15 @@ function* watchSolveTopRightMatrix(): SagaIterator<void> {
     );
 
     yield put(setMatrix({ matrix9x9: topRightMatrix }));
-    yield put(solveMiddleLeftMatrix());
+    yield put(solveMiddleLeftMatrix(action.payload));
   } catch (e) {
-    yield put(startSolvingMatrixFromScrach());
+    yield put(startSolvingMatrixFromScrach(action.payload));
   }
 }
 
-function* watchSolveMiddleLeftMatrix(): SagaIterator<void> {
+function* watchSolveMiddleLeftMatrix(
+  action: ReturnType<typeof solveMiddleLeftMatrix>
+): SagaIterator<void> {
   try {
     const matrixSolvedSoFar: SagaReturnType<typeof selectMatrix9x9> =
       yield select(selectMatrix9x9);
@@ -92,13 +102,15 @@ function* watchSolveMiddleLeftMatrix(): SagaIterator<void> {
 
     yield put(setMatrix({ matrix9x9: middleLeftMatrix }));
 
-    yield put(solveMiddleRightMatrix());
+    yield put(solveMiddleRightMatrix(action.payload));
   } catch (e) {
-    yield put(startSolvingMatrixFromScrach());
+    yield put(startSolvingMatrixFromScrach(action.payload));
   }
 }
 
-function* watchSolveMiddleRightMatrix(): SagaIterator<void> {
+function* watchSolveMiddleRightMatrix(
+  action: ReturnType<typeof solveMiddleRightMatrix>
+): SagaIterator<void> {
   try {
     const matrixSolvedSoFar: SagaReturnType<typeof selectMatrix9x9> =
       yield select(selectMatrix9x9);
@@ -111,13 +123,15 @@ function* watchSolveMiddleRightMatrix(): SagaIterator<void> {
     );
 
     yield put(setMatrix({ matrix9x9: middleRightMatrix }));
-    yield put(solveBottomLeftMatrix());
+    yield put(solveBottomLeftMatrix(action.payload));
   } catch (error) {
-    yield put(startSolvingMatrixFromScrach());
+    yield put(startSolvingMatrixFromScrach(action.payload));
   }
 }
 
-function* watchSolveBottomLeftMatrix(): SagaIterator<void> {
+function* watchSolveBottomLeftMatrix(
+  action: ReturnType<typeof solveBottomLeftMatrix>
+): SagaIterator<void> {
   try {
     const matrixSolvedSoFar: SagaReturnType<typeof selectMatrix9x9> =
       yield select(selectMatrix9x9);
@@ -130,13 +144,15 @@ function* watchSolveBottomLeftMatrix(): SagaIterator<void> {
     );
 
     yield put(setMatrix({ matrix9x9: bottomLeftMatrix }));
-    yield put(solveBottomCenterMatrix());
+    yield put(solveBottomCenterMatrix(action.payload));
   } catch (error) {
-    yield put(startSolvingMatrixFromScrach());
+    yield put(startSolvingMatrixFromScrach(action.payload));
   }
 }
 
-function* watchSolveBottomCenterMatrix(): SagaIterator<void> {
+function* watchSolveBottomCenterMatrix(
+  action: ReturnType<typeof solveBottomCenterMatrix>
+): SagaIterator<void> {
   try {
     const matrixSolvedSoFar: SagaReturnType<typeof selectMatrix9x9> =
       yield select(selectMatrix9x9);
@@ -156,24 +172,24 @@ function* watchSolveBottomCenterMatrix(): SagaIterator<void> {
     const sudokuPuzzle: SagaReturnType<typeof sudokuHider> = yield call(
       sudokuHider,
       sudokuCompletelySolved,
-      HardnessLevel.CHILD
+      action.payload
     );
 
     yield put(setPuzzleMatrix({ matrix9x9: sudokuPuzzle }));
   } catch (error) {
-    yield put(startSolvingMatrixFromScrach());
+    yield put(startSolvingMatrixFromScrach(action.payload));
   }
 }
 
 export function* sudokuSaga(): SagaIterator<void> {
   yield takeLatest(
-    startSolvingMatrixFromScrach,
-    watchStartSolvingMatrixFromScrach
+    startSolvingDiagonalMatrices,
+    watchStartSolvingDiagonalMatrices
   );
 
   yield takeLatest(
-    startSolvingDiagonalMatrices,
-    watchStartSolvingDiagonalMatrices
+    startSolvingMatrixFromScrach,
+    watchStartSolvingMatrixFromScrach
   );
 
   yield takeLatest(solveTopCentreMatrix, watchSolveTopCenterMatrix);
