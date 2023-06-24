@@ -25,7 +25,12 @@ const mapDispatch = (dispatch: Dispatch) => {
     dispatch(startSolvingDiagonalMatrices(HardnessLevel.MEDIUM));
   };
 
+  const handleStartSolvingWithCustomLevel = (level: HardnessLevel) => {
+    dispatch(startSolvingDiagonalMatrices(level));
+  };
+
   return {
+    handleStartSolvingWithCustomLevel,
     handleStartSolving,
   };
 };

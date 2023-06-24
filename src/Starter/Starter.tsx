@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import scssObj from './Starter.scss';
+import { HardnessLevel } from '../Utility/RedokuUtils';
 
 const sudokuMapper = (numberMatrix: number[][]) => {
   return (
@@ -38,14 +43,17 @@ interface Props {
   puzzleMatrix: number[][];
   isSudokuBeingCalculated: boolean;
   handleStartSolving: () => void;
+  handleStartSolvingWithCustomLevel: (level: HardnessLevel) => void;
 }
 
 function Starter({
   matrix,
   puzzleMatrix,
   handleStartSolving,
+  handleStartSolvingWithCustomLevel,
   isSudokuBeingCalculated,
 }: Props) {
+  const [hardness, setHardness] = useState<HardnessLevel>(HardnessLevel.MEDIUM);
   const [isCalledInitially, setIsCalledInitially] = useState<boolean>(false);
 
   useEffect(() => {
@@ -65,12 +73,31 @@ function Starter({
 
   return (
     <div className={`${scssObj.baseClass}__container`}>
-      <Button
-        variant='contained'
-        onClick={handleStartSolving}
-      >
-        Suraj
-      </Button>
+      <div className={`${scssObj.baseClass}__dropdown`}>
+        <div className={`${scssObj.baseClass}__dropdown-container`}>
+          <FormControl
+            fullWidth
+            className={`${scssObj.baseClass}__dropdown-container`}
+          >
+            <InputLabel>Hardness</InputLabel>
+            <Select
+              value={hardness}
+              label='Hardness'
+              onChange={(event: SelectChangeEvent) => {
+                setHardness(event.target.value as HardnessLevel);
+                handleStartSolvingWithCustomLevel(
+                  event.target.value as HardnessLevel
+                );
+              }}
+              className={`${scssObj.baseClass}__dropdown-container`}
+            >
+              {Object.keys(HardnessLevel).map((hardness) => {
+                return <MenuItem value={hardness}>{hardness}</MenuItem>;
+              })}
+            </Select>
+          </FormControl>
+        </div>
+      </div>
 
       <div className={`${scssObj.baseClass}__title`}>Solution</div>
       {sudokuMapper(matrix)}

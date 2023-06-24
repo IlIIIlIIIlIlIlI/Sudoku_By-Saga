@@ -22,4 +22,14 @@ $base-class: starter;
     align-items: center;
     margin-top: 20px;
   }
+
+  &__dropdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__dropdown-container {
+    max-width: 300px;
+  }
 }
