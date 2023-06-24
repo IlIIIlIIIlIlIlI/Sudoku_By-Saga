@@ -22,7 +22,6 @@ import {
   toggleLoadingSpinner,
 } from '../Redux';
 import {
-  HardnessLevel,
   calculateNonDiagonalMatrix,
   createOnlyDiagonalMatrices,
   sudokuHider,
