@@ -174,6 +174,7 @@ export const calculateNonDiagonalMatrix = (
 };
 
 export enum HardnessLevel {
+  CHILD = 'CHILD',
   EASY = 'EASY',
   MEDIUM = 'MEDIUM',
   HARD = 'HARD',
@@ -183,6 +184,7 @@ export enum HardnessLevel {
 }
 
 export const hardnessMap = new Map<HardnessLevel, number[]>([
+  [HardnessLevel.CHILD, [1]],
   [HardnessLevel.EASY, [1, 2]],
   [HardnessLevel.MEDIUM, [2, 3, 4]],
   [HardnessLevel.HARD, [4, 5]],

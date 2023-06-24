@@ -5,12 +5,14 @@ import scssObj from './Starter.scss';
 
 interface Props {
   matrix: number[][];
+  puzzleMatrix: number[][];
   isSudokuBeingCalculated: boolean;
   handleStartSolving: () => void;
 }
 
 function Starter({
   matrix,
+  puzzleMatrix,
   handleStartSolving,
   isSudokuBeingCalculated,
 }: Props) {

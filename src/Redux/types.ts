@@ -10,15 +10,18 @@ import {
   solveBottomCenterMatrix,
   toggleLoadingSpinner,
   startSolvingDiagonalMatrices,
+  setPuzzleMatrix,
 } from './actions';
 
 export type Sudoku = {
+  puzzleMatrix: number[][];
   matrix9x9: number[][];
   isSudokuBeingCalculated: boolean;
 };
 
 export type ReduxActionType =
   | ActionType<typeof startSolvingDiagonalMatrices>
+  | ActionType<typeof setPuzzleMatrix>
   | ActionType<typeof solveTopCentreMatrix>
   | ActionType<typeof solveTopRightMatrix>
   | ActionType<typeof solveMiddleLeftMatrix>

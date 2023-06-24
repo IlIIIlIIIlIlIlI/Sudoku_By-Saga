@@ -10,6 +10,7 @@ import {
 import {
   selectMatrix9x9,
   setMatrix,
+  setPuzzleMatrix,
   solveBottomCenterMatrix,
   solveBottomLeftMatrix,
   solveMiddleLeftMatrix,
@@ -149,8 +150,16 @@ function* watchSolveBottomCenterMatrix(): SagaIterator<void> {
     yield put(setMatrix({ matrix9x9: bottomCenterMatrix }));
     yield put(toggleLoadingSpinner(false));
 
-    const sudoku = yield select(selectMatrix9x9);
-    yield call(sudokuHider, sudoku, HardnessLevel.EVIL);
+    const sudokuCompletelySolved: SagaReturnType<typeof selectMatrix9x9> =
+      yield select(selectMatrix9x9);
+
+    const sudokuPuzzle: SagaReturnType<typeof sudokuHider> = yield call(
+      sudokuHider,
+      sudokuCompletelySolved,
+      HardnessLevel.CHILD
+    );
+
+    yield put(setPuzzleMatrix({ matrix9x9: sudokuPuzzle }));
   } catch (error) {
     yield put(startSolvingMatrixFromScrach());
   }

@@ -7,3 +7,6 @@ export const selectMatrix9x9 = (state: SudokuSuperState) =>
 
 export const selectIsSudokuBeingCalculated = (state: SudokuSuperState) =>
   selectSudokuState(state).isSudokuBeingCalculated;
+
+export const selectPuzzleMatrix = (state: SudokuSuperState) =>
+  selectSudokuState(state).puzzleMatrix;

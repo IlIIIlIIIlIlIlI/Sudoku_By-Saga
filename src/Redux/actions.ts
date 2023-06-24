@@ -9,6 +9,11 @@ export const setMatrix = createAction(
   (action) => (payload: { matrix9x9: number[][] }) => action(payload)
 );
 
+export const setPuzzleMatrix = createAction(
+  'SET_PUZZLE_MATRIX_9X9',
+  (action) => (payload: { matrix9x9: number[][] }) => action(payload)
+);
+
 export const startSolvingDiagonalMatrices = createAction(
   'START_SOLVING_DIAGONAL_MATRICES'
 );
