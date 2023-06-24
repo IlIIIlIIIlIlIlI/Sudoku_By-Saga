@@ -15,4 +15,11 @@ $base-class: starter;
     align-items: center;
     margin-top: calc(50vh - 75px);
   }
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
 }

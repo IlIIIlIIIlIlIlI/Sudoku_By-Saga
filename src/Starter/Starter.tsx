@@ -72,9 +72,9 @@ function Starter({
         Suraj
       </Button>
 
-      <div>Solution</div>
+      <div className={`${scssObj.baseClass}__title`}>Solution</div>
       {sudokuMapper(matrix)}
-      <div>Puzzle</div>
+      <div className={`${scssObj.baseClass}__title`}>Puzzle</div>
       {sudokuMapper(puzzleMatrix)}
     </div>
   );
