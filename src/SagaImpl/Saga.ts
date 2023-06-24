@@ -21,8 +21,10 @@ import {
   toggleLoadingSpinner,
 } from '../Redux';
 import {
+  HardnessLevel,
   calculateNonDiagonalMatrix,
   createOnlyDiagonalMatrices,
+  sudokuHider,
 } from '../Utility/RedokuUtils';
 
 function* watchStartSolvingDiagonalMatrices(): SagaIterator<void> {
@@ -146,6 +148,9 @@ function* watchSolveBottomCenterMatrix(): SagaIterator<void> {
     );
     yield put(setMatrix({ matrix9x9: bottomCenterMatrix }));
     yield put(toggleLoadingSpinner(false));
+
+    const sudoku = yield select(selectMatrix9x9);
+    yield call(sudokuHider, sudoku, HardnessLevel.EVIL);
   } catch (error) {
     yield put(startSolvingMatrixFromScrach());
   }

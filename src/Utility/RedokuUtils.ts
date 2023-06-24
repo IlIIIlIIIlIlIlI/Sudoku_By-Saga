@@ -32,6 +32,11 @@ export const selectRandomNumberFromSet = (numberSet: Set<number>) => {
 export const setOfAllNumbers = Array.from({ length: 9 }, (_, i) => i + 1);
 
 /**
+ * Set of number from 0 to 8
+ */
+export const setOfAllIndices = Array.from({ length: 9 }, (_, i) => i);
+
+/**
  * Create 3x3 random diagonal matrix
  */
 export const create3by3RandomMatrix = () => {
@@ -169,12 +174,74 @@ export const calculateNonDiagonalMatrix = (
 };
 
 export enum HardnessLevel {
-  SOLUTION = 'SOLUTION',
   EASY = 'EASY',
   MEDIUM = 'MEDIUM',
   HARD = 'HARD',
   EXPERT = 'EXPERT',
   EVIL = 'EVIL',
+  SOLUTION = 'SOLUTION',
 }
 
-const sudokuHider = (parentMatrix: number[][], level: HardnessLevel) => {};
+export const hardnessMap = new Map<HardnessLevel, number[]>([
+  [HardnessLevel.EASY, [1, 2]],
+  [HardnessLevel.MEDIUM, [2, 3, 4]],
+  [HardnessLevel.HARD, [4, 5]],
+  [HardnessLevel.EXPERT, [5, 6]],
+  [HardnessLevel.EVIL, [6, 7]],
+  [HardnessLevel.SOLUTION, []],
+]);
+
+/**
+ * Get n random from x lengthed array,
+ * If 1 is passed to 5 element arrty then it would give 1 random from that array
+ */
+export const getNRandomNumbersFromArray = (randomNumbers: number) => {
+  const indicesList = new Set<number>(setOfAllIndices);
+
+  const randomIndicesList: number[] = [];
+  for (let i = 0; i < randomNumbers; i++) {
+    const randomIndexInRow = selectRandomNumberFromSet(indicesList);
+
+    indicesList.delete(randomIndexInRow);
+    randomIndicesList.push(randomIndexInRow);
+  }
+
+  return randomIndicesList;
+};
+
+export const sudokuHider = (parentMatrix: number[][], level: HardnessLevel) => {
+  if (level === HardnessLevel.SOLUTION) {
+    return parentMatrix;
+  }
+
+  const numberOfPlacesToBeHidden = hardnessMap.get(level)!;
+  const blankMatrix = createBlankMatrix();
+
+  /**
+   * Parent Mapper
+   */
+  for (let i = 0; i < blankMatrix.length; i++) {
+    for (let j = 0; j < blankMatrix.length; j++) {
+      blankMatrix[i][j] = parentMatrix[i][j];
+    }
+  }
+
+  for (let i = 0; i < blankMatrix.length; i++) {
+    const randomNumberOfHiddenPlacesIndex = randomNumberGenerator(
+      numberOfPlacesToBeHidden.length
+    );
+
+    const randomNumberOfHiddenPlaces =
+      numberOfPlacesToBeHidden[randomNumberOfHiddenPlacesIndex];
+
+    const indicesOfPlacesToBeHidden = getNRandomNumbersFromArray(
+      randomNumberOfHiddenPlaces
+    );
+
+    indicesOfPlacesToBeHidden.forEach((index) => {
+      blankMatrix[i][index] = 0;
+    });
+  }
+
+  return blankMatrix;
+};
